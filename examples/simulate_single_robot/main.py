@@ -4,7 +4,7 @@ from revolve2.ci_group.simulation_parameters import make_standard_batch_paramete
 from revolve2.experimentation.logging import setup_logging
 from revolve2.experimentation.rng import make_rng_time_seed
 from revolve2.modular_robot import ModularRobot
-from revolve2.modular_robot.body import RightAngles
+from revolve2.modular_robot.body import RightAngles, EquilateralAngles
 from revolve2.modular_robot.body.v1 import ActiveHingeV1, BodyV1, BrickV1
 from revolve2.modular_robot.brain.cpg import BrainCpgNetworkNeighborRandom
 from revolve2.modular_robot_simulation import ModularRobotScene, simulate_scenes
@@ -22,13 +22,20 @@ def make_body() -> BodyV1:
     # From here, other modular can be attached.
     # Modules can be attached in a rotated fashion.
     # This can be any angle, although the original design takes into account only multiples of 90 degrees.
+    # body = BodyV1()
+    # body.core_v1.left = ActiveHingeV1(RightAngles.DEG_0)
+    # body.core_v1.left.attachment = ActiveHingeV1(RightAngles.DEG_0)
+    # body.core_v1.left.attachment.attachment = BrickV1(RightAngles.DEG_0)
+    # body.core_v1.right = ActiveHingeV1(RightAngles.DEG_0)
+    # body.core_v1.right.attachment = ActiveHingeV1(RightAngles.DEG_0)
+    # body.core_v1.right.attachment.attachment = BrickV1(RightAngles.DEG_0)
     body = BodyV1()
-    body.core_v1.left = ActiveHingeV1(RightAngles.DEG_0)
-    body.core_v1.left.attachment = ActiveHingeV1(RightAngles.DEG_0)
-    body.core_v1.left.attachment.attachment = BrickV1(RightAngles.DEG_0)
-    body.core_v1.right = ActiveHingeV1(RightAngles.DEG_0)
-    body.core_v1.right.attachment = ActiveHingeV1(RightAngles.DEG_0)
-    body.core_v1.right.attachment.attachment = BrickV1(RightAngles.DEG_0)
+    body.core_v1.left = ActiveHingeV1(EquilateralAngles.DEG_90)
+    body.core_v1.left.attachment = ActiveHingeV1(EquilateralAngles.DEG_60)
+    body.core_v1.left.attachment.attachment = BrickV1(EquilateralAngles.DEG_60)
+    body.core_v1.right = ActiveHingeV1(EquilateralAngles.DEG_180)
+    body.core_v1.right.attachment = ActiveHingeV1(EquilateralAngles.DEG_60)
+    body.core_v1.right.attachment.attachment = BrickV1(EquilateralAngles.DEG_60)
     return body
 
 

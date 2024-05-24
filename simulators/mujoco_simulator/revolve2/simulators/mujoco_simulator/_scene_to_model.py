@@ -89,6 +89,7 @@ def scene_to_model(
         conversions,
         strict=True,
     ):
+        # print(urdf)
         multi_body_system_model = mujoco.MjModel.from_xml_string(urdf)
 
         # MuJoCo can only save to a file, not directly to string,
@@ -258,9 +259,14 @@ def scene_to_model(
                 ).material = f"{m_name}_material"
 
     xml = env_mjcf.to_xml_string()
+    # print(xml)
     assert isinstance(xml, str)
 
-    model = mujoco.MjModel.from_xml_string(xml)
+    ASSETS=dict()
+    with open('/root/Masters/Sim/revolve2-folding/meshes/triangle.stl', 'rb') as f:
+      ASSETS['triangle-48bba7111b9f44f3c74ada14a4e90b8ad8d7a35b.stl'] = f.read()
+
+    model = mujoco.MjModel.from_xml_string(xml, ASSETS)
 
     # set height map values
     heightmap_offset = 0

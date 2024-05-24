@@ -22,6 +22,7 @@ from revolve2.experimentation.optimization.ea import population_management, sele
 from revolve2.experimentation.rng import make_rng, seed_from_time
 
 
+
 def select_parents(
     rng: np.random.Generator,
     population: Population,
